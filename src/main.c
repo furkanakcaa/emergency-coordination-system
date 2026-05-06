@@ -1,31 +1,25 @@
-#include "graph.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "graph.h"
+#include "region_tree.h"
 
 int main()
 {
 
-    Graph *g = createGraph(10);
+    TreeNode *root = createTreeNode(0, "Isparta");
+    TreeNode *merkez = createTreeNode(1, "Merkez");
+    TreeNode *egirdir = createTreeNode(2, "Egirdir");
+    TreeNode *bahcelievler = createTreeNode(3, "Bahcelievler");
+    TreeNode *guneykent = createTreeNode(4, "Guneykent");
+    TreeNode *yazla = createTreeNode(5, "Yazla");
 
-    addRegion(g, 0, "Merkez");
-    addRegion(g, 1, "Kuzey");
-    addRegion(g, 2, "Güney");
-    addRegion(g, 3, "Dogu");
-    addRegion(g, 4, "Bati");
-    addRegion(g, 5, "Kuzeydogu");
+    addChild(root, merkez);
+    addChild(root, egirdir);
+    addChild(merkez, bahcelievler);
+    addChild(merkez, guneykent);
+    addChild(egirdir, yazla);
 
-    addRoad(g, 0, 1, 5);
-    addRoad(g, 0, 2, 3);
-    addRoad(g, 2, 4, 1);
-    addRoad(g, 4, 5, 1);
-    addRoad(g, 1, 3, 8);
-    addRoad(g, 2, 4, 6);
-    addRoad(g, 3, 4, 2);
-    addRoad(g, 2, 5, 3);
-
-    printGraph(g);
-
-    dijkstra(g, 0, 5);
+    printTree(root, 0);
 
     return 0;
 }
