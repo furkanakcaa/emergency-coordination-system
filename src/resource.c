@@ -68,11 +68,11 @@ void printList(ResourceList *list)
     ResourceNode *temp = list->head;
     while (temp != NULL)
     {
-        printf("\nid: %d", temp->data.id);
+        printf("\n\nid: %d", temp->data.id);
         printf("\nname: %s", temp->data.name);
         printf("\nmesgul mu: %d", temp->data.isBusy);
-        printf("\tip: %d", temp->data.type);
-        printf("\bolge id: %d", temp->data.regionId);
+        printf("\ntip: %d", temp->data.type);
+        printf("\nbolge id: %d", temp->data.regionId);
         temp = temp->next;
     }
 }

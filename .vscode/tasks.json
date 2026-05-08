@@ -9,6 +9,13 @@
                 "-g",
                 "${fileDirname}\\main.c",
                 "${fileDirname}\\graph.c",
+                "${fileDirname}\\incident.c",
+                "${fileDirname}\\resource.c",
+                "${fileDirname}\\stack.c",
+                "${fileDirname}\\hash_table.c",
+                "${fileDirname}\\bst.c",
+                "${fileDirname}\\region_tree.c",
+                "${fileDirname}\\menu.c",
                 "-o",
                 "${fileDirname}\\main.exe"
             ],

@@ -24,13 +24,6 @@ Incident peekMin(PriorityQueue *pq)
     return pq->data[0];
 }
 
-void insertPQ(PriorityQueue *pq, Incident incident)
-{
-    pq->data[pq->size] = incident;
-    pq->size++;
-    heapifyUp(pq, pq->size - 1);
-}
-
 void heapifyUp(PriorityQueue *pq, int index)
 {
     while (index != 0 && pq->data[(index - 1) / 2].priority > pq->data[index].priority)
@@ -40,6 +33,13 @@ void heapifyUp(PriorityQueue *pq, int index)
         pq->data[index] = temp;
         index = (index - 1) / 2;
     }
+}
+
+void insertPQ(PriorityQueue *pq, Incident incident)
+{
+    pq->data[pq->size] = incident;
+    pq->size++;
+    heapifyUp(pq, pq->size - 1);
 }
 
 void heapifyDown(PriorityQueue *pq, int index)

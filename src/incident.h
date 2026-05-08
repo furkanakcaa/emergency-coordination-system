@@ -1,3 +1,6 @@
+#ifndef INCIDENT_H
+#define INCIDENT_H
+
 #include <time.h>
 
 typedef enum
@@ -38,3 +41,5 @@ Incident extractMin(PriorityQueue *pq);
 Incident peekMin(PriorityQueue *pq);
 int isEmptyPQ(PriorityQueue *pq);
 void freePQ(PriorityQueue *pq);
+
+#endif

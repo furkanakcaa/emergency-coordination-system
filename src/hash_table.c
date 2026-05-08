@@ -28,7 +28,7 @@ Incident *searchRecord(HashTable *ht, int id)
     while (node != NULL && node->data.id != id)
         node = node->next;
 
-    return node;
+    return &node->data;
 }
 
 void deleteRecord(HashTable *ht, int id)

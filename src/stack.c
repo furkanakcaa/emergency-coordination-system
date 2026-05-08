@@ -27,7 +27,8 @@ Action pop(Stack *stack)
     if (isEmptyStack(stack))
     {
         printf("stack bos\n");
-        return;
+        Action empty = {0};
+        return empty;
     }
     Action temp = stack->data[stack->top];
     stack->top--;
