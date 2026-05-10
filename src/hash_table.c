@@ -36,13 +36,17 @@ void deleteRecord(HashTable *ht, int id)
     int index = id % TABLE_SIZE;
 
     if (ht->buckets[index] == NULL)
+    {
+        printf("Bu ID ile olay bulunamadi!\n");
         return;
+    }
 
     if (ht->buckets[index]->data.id == id)
     {
         HashNode *temp = ht->buckets[index];
         ht->buckets[index] = temp->next;
         free(temp);
+        printf("Olay silindi.\n");
         return;
     }
 
@@ -52,11 +56,15 @@ void deleteRecord(HashTable *ht, int id)
         node = node->next;
 
     if (node->next == NULL)
+    {
+        printf("Bu ID ile olay bulunamadi!\n");
         return;
+    }
 
     HashNode *temp = node->next;
     node->next = node->next->next;
     free(temp);
+    printf("Olay silindi.\n");
 }
 
 void printHashTable(HashTable *ht)

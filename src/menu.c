@@ -69,12 +69,35 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack)
             inc.timeStamp = time(NULL);
             printf("ID: ");
             scanf("%d", &inc.id);
-            printf("Oncelik (1-5): ");
-            scanf("%d", &inc.priority);
+
+            if (searchRecord(ht, inc.id) != NULL)
+            {
+                printf("Bu ID zaten mevcut!\n");
+                break;
+            }
+
+            do
+            {
+                printf("Oncelik (1-5): ");
+                scanf("%d", &inc.priority);
+                if (inc.priority < 1 || inc.priority > 5)
+                    printf("Gecersiz! 1-5 arasi girin.\n");
+            } while (inc.priority < 1 || inc.priority > 5);
+
+            int tip;
+            do
+            {
+                printf("Tip (0:FIRE, 1:MEDICAL, 2:RESCUE): ");
+                scanf("%d", &tip);
+                if (tip < 0 || tip > 2)
+                    printf("Gecersiz! 0-2 arasi girin.\n");
+
+            } while (tip < 0 || tip > 2);
+
+            inc.type = (IncidentType)tip;
+
             printf("Bolge ID: ");
             scanf("%d", &inc.regionId);
-            printf("Tip (0:FIRE, 1:MEDICAL, 2:RESCUE): ");
-            scanf("%d", (int *)&inc.type);
             insertPQ(pq, inc);
             insertRecord(ht, inc);
             bst->root = insertBST(bst->root, inc);
@@ -163,6 +186,13 @@ void resourceMenu(ResourceList *list)
             Resource r;
             printf("ID: ");
             scanf("%d", &r.id);
+
+            if (findById(list, r.id) != NULL)
+            {
+                printf("Bu ID zaten mevcut!\n");
+                break;
+            }
+
             printf("Ad: ");
             scanf("%s", r.name);
             printf("Tip (0:ITFAIYE 1:AMBULANS 2:KURTARMA): ");
@@ -215,6 +245,13 @@ void regionMenu(Graph *g, TreeNode *root)
             scanf("%d", &start);
             printf("Hedef bolge ID: ");
             scanf("%d", &end);
+
+            if (start >= g->node_count || end >= g->node_count || start < 0 || end < 0)
+            {
+                printf("Gecersiz bolge ID!\n");
+                break;
+            }
+
             dijkstra(g, start, end);
             break;
         }

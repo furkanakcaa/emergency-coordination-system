@@ -92,7 +92,7 @@ void freeBST(BSTNode *root)
     if (root == NULL)
         return;
 
-    freeBST(root->right);
+    freeBST(root->left);
     freeBST(root->right);
     free(root);
 }
