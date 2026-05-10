@@ -31,5 +31,6 @@ void addResource(ResourceList *list, Resource resource);
 ResourceNode *findById(ResourceList *list, int id);
 void removeResource(ResourceList *list, int id);
 ResourceNode *findAvailable(ResourceList *list, ResourceType type);
+char *resourceTypeToString(ResourceType type);
 void printList(ResourceList *list);
 void freeList(ResourceList *list);

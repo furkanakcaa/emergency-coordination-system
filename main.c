@@ -11,21 +11,32 @@
 
 int main()
 {
-    // Graf
-    Graph *g = createGraph(10);
-    addRegion(g, 0, "Merkez");
-    addRegion(g, 1, "Kuzey");
-    addRegion(g, 2, "Guney");
-    addRegion(g, 3, "Dogu");
-    addRegion(g, 4, "Bati");
-    addRegion(g, 5, "Liman");
-    addRoad(g, 0, 1, 5);
-    addRoad(g, 0, 2, 3);
-    addRoad(g, 1, 3, 8);
-    addRoad(g, 2, 4, 6);
-    addRoad(g, 3, 4, 2);
-    addRoad(g, 4, 5, 7);
-    addRoad(g, 1, 5, 10);
+    Graph *g = createGraph(15);
+    addRegion(g, 0, "Cankaya");
+    addRegion(g, 1, "Kecioren");
+    addRegion(g, 2, "Mamak");
+    addRegion(g, 3, "Etimesgut");
+    addRegion(g, 4, "Sincan");
+    addRegion(g, 5, "Yenimahalle");
+    addRegion(g, 6, "Pursaklar");
+    addRegion(g, 7, "Golbasi");
+    addRegion(g, 8, "Altindag");
+    addRegion(g, 9, "Cubuk");
+
+    addRoad(g, 0, 1, 8);
+    addRoad(g, 0, 2, 6);
+    addRoad(g, 0, 5, 5);
+    addRoad(g, 1, 6, 7);
+    addRoad(g, 1, 8, 4);
+    addRoad(g, 2, 8, 5);
+    addRoad(g, 2, 9, 12);
+    addRoad(g, 3, 4, 9);
+    addRoad(g, 3, 5, 6);
+    addRoad(g, 4, 5, 8);
+    addRoad(g, 5, 8, 7);
+    addRoad(g, 6, 9, 15);
+    addRoad(g, 7, 0, 18);
+    addRoad(g, 8, 9, 20);
 
     // Priority Queue — olaylar
     PriorityQueue *pq = createPQ(100);
@@ -73,19 +84,36 @@ int main()
     Stack *stack = createStack(50);
 
     // Bölge ağacı
-    TreeNode *root = createTreeNode(0, "Isparta");
-    TreeNode *merkez = createTreeNode(1, "Merkez");
-    TreeNode *egirdir = createTreeNode(2, "Egirdir");
-    TreeNode *yalvac = createTreeNode(3, "Yalvac");
-    TreeNode *sarkikaraagac = createTreeNode(4, "Sarkikaraagac");
-    TreeNode *bahcelievler = createTreeNode(5, "Bahcelievler");
-    TreeNode *guneykent = createTreeNode(6, "Guneykent");
-    addChild(root, merkez);
-    addChild(root, egirdir);
-    addChild(root, yalvac);
-    addChild(root, sarkikaraagac);
-    addChild(merkez, bahcelievler);
-    addChild(merkez, guneykent);
+    TreeNode *root = createTreeNode(0, "Ankara");
+    TreeNode *cankaya = createTreeNode(1, "Cankaya");
+    TreeNode *kecioren = createTreeNode(2, "Kecioren");
+    TreeNode *mamak = createTreeNode(3, "Mamak");
+    TreeNode *etimesgut = createTreeNode(4, "Etimesgut");
+    TreeNode *sincan = createTreeNode(5, "Sincan");
+    TreeNode *yenimahalle = createTreeNode(6, "Yenimahalle");
+
+    TreeNode *bahcelievler = createTreeNode(7, "Bahcelievler");
+    TreeNode *cukurambar = createTreeNode(8, "Cukurambar");
+    TreeNode *dikmen = createTreeNode(9, "Dikmen");
+    TreeNode *eryaman = createTreeNode(10, "Eryaman");
+    TreeNode *batikent = createTreeNode(11, "Batikent");
+    TreeNode *demetevler = createTreeNode(12, "Demetevler");
+    TreeNode *pursaklar = createTreeNode(13, "Pursaklar");
+
+    addChild(root, cankaya);
+    addChild(root, kecioren);
+    addChild(root, mamak);
+    addChild(root, etimesgut);
+    addChild(root, sincan);
+    addChild(root, yenimahalle);
+
+    addChild(cankaya, bahcelievler);
+    addChild(cankaya, cukurambar);
+    addChild(cankaya, dikmen);
+    addChild(etimesgut, eryaman);
+    addChild(sincan, batikent);
+    addChild(kecioren, demetevler);
+    addChild(kecioren, pursaklar);
 
     // Menüyü başlat
     showMenu(g, pq, list, stack, ht, bst, root);

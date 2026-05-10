@@ -8,6 +8,7 @@
 #include "bst.h"
 #include "region_tree.h"
 #include "menu.h"
+#include "performance_test.h"
 
 void showMenu(Graph *g, PriorityQueue *pq, ResourceList *list, Stack *stack, HashTable *ht, BST *bst, TreeNode *root)
 {
@@ -26,7 +27,7 @@ void showMenu(Graph *g, PriorityQueue *pq, ResourceList *list, Stack *stack, Has
         switch (secim)
         {
         case 1:
-            incidentMenu(pq, ht, bst, stack);
+            incidentMenu(pq, ht, bst, stack, g);
             break;
         case 2:
             resourceMenu(list);
@@ -46,12 +47,12 @@ void showMenu(Graph *g, PriorityQueue *pq, ResourceList *list, Stack *stack, Has
     } while (secim != 0);
 }
 
-void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack)
+void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack, Graph *g)
 {
     int secim;
     do
     {
-        printf("\n** Olay Yonetimi **\n");
+        printf("\n\n** Olay Yonetimi **\n");
         printf("1. Yeni olay ekle\n");
         printf("2. En kritik olayi gor\n");
         printf("3. Olayi kapat\n");
@@ -96,8 +97,14 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack)
 
             inc.type = (IncidentType)tip;
 
-            printf("Bolge ID: ");
-            scanf("%d", &inc.regionId);
+            do
+            {
+                printf("Bolge ID (0-%d): ", g->node_count - 1);
+                scanf("%d", &inc.regionId);
+                if (inc.regionId < 0 || inc.regionId >= g->node_count)
+                    printf("Gecersiz! Boyle bir bolge yok. \n");
+            } while (inc.regionId < 0 || inc.regionId >= g->node_count);
+
             insertPQ(pq, inc);
             insertRecord(ht, inc);
             bst->root = insertBST(bst->root, inc);
@@ -116,8 +123,8 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack)
             printf("\nEn kritik olay:");
             printf("\nID: %d", top.id);
             printf("\nOncelik: %d", top.priority);
-            printf("\nTip: %d", top.type);
-            printf("\nBolge: %d", top.regionId);
+            printf("\nTip: %s", incidentTypeToString(top.type));
+            printf("\nBolge: %s", g->nodes[top.regionId].region_name);
             break;
         }
         case 3:
@@ -153,9 +160,9 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack)
             {
                 printf("\nID: %d", inc->id);
                 printf("\nOncelik: %d", inc->priority);
-                printf("\nTip: %d", inc->type);
-                printf("\nDurum: %d", inc->status);
-                printf("\nBolge: %d", inc->regionId);
+                printf("\nTip  : %s", incidentTypeToString(inc->type));
+                printf("\nDurum: %s", incidentStatusToString(inc->status));
+                printf("\nBolge: %d", g->nodes[inc->regionId].region_name);
                 printf("\nAtanan ekip: %d", inc->assignedTeamId);
             }
             break;
@@ -172,7 +179,7 @@ void resourceMenu(ResourceList *list)
     int secim;
     do
     {
-        printf("\n** Ekip Yonetimi **\n");
+        printf("\n\n** Ekip Yonetimi **\n");
         printf("1. Ekip ekle\n");
         printf("2. Ekip sil\n");
         printf("3. Listeyi goster\n");
@@ -226,7 +233,7 @@ void regionMenu(Graph *g, TreeNode *root)
     int secim;
     do
     {
-        printf("\n** Bolge Islemleri **\n");
+        printf("\n\n** Bolge Islemleri **\n");
         printf("1. Graf yazdir\n");
         printf("2. En kisa yol bul\n");
         printf("3. Bolge agaci yazdir\n");
@@ -270,9 +277,10 @@ void reportMenu(BST *bst, HashTable *ht)
     int secim;
     do
     {
-        printf("\n** Raporlama **\n");
+        printf("\n\n** Raporlama **\n");
         printf("1. Olaylari oncelik sirasinda listele\n");
         printf("2. Hash table yazdir\n");
+        printf("3. Rapor\n");
         printf("0. Geri\n");
         scanf("%d", &secim);
 
@@ -283,6 +291,9 @@ void reportMenu(BST *bst, HashTable *ht)
             break;
         case 2:
             printHashTable(ht);
+            break;
+        case 3:
+            performanceTesti();
             break;
         case 0:
             break;
