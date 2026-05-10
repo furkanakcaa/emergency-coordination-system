@@ -83,6 +83,15 @@ ResourceNode *findAvailable(ResourceList *list, ResourceType type)
     return NULL;
 }
 
+char *resourceTypeToString(ResourceType type)
+{
+    if (type == ITFAIYE)
+        return "Itfaiye";
+    if (type == AMBULANS)
+        return "Ambulans";
+    return "Kurtarma";
+}
+
 void printList(ResourceList *list)
 {
     if (list->head == NULL)
@@ -97,7 +106,7 @@ void printList(ResourceList *list)
         printf("\n\nid: %d", temp->data.id);
         printf("\nname: %s", temp->data.name);
         printf("\nmesgul mu: %d", temp->data.isBusy);
-        printf("\ntip: %d", temp->data.type);
+        printf("\ntip: %s", resourceTypeToString(temp->data.type));
         printf("\nbolge id: %d", temp->data.regionId);
         temp = temp->next;
     }

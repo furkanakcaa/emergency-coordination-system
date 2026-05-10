@@ -72,6 +72,24 @@ Incident extractMin(PriorityQueue *pq)
     return temp;
 }
 
+char *incidentTypeToString(IncidentType type)
+{
+    if (type == FIRE)
+        return "Yangin";
+    if (type == MEDICAL)
+        return "Tibbi";
+    return "Kurtarma";
+}
+
+char *incidentStatusToString(IncidentStatus status)
+{
+    if (status == WAITING)
+        return "Bekliyor";
+    if (status == ASSIGNED)
+        return "Atandi";
+    return "Tamamlandi";
+}
+
 void freePQ(PriorityQueue *pq)
 {
     free(pq->data);

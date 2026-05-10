@@ -16,6 +16,7 @@
                 "${fileDirname}\\bst.c",
                 "${fileDirname}\\region_tree.c",
                 "${fileDirname}\\menu.c",
+                "${fileDirname}\\performance_test.c",
                 "-o",
                 "${fileDirname}\\main.exe"
             ],

@@ -36,6 +36,8 @@ typedef struct PriorityQueue
 } PriorityQueue;
 
 PriorityQueue *createPQ(int capacity);
+char *incidentStatusToString(IncidentStatus status);
+char *incidentTypeToString(IncidentType type);
 void insertPQ(PriorityQueue *pq, Incident incident);
 Incident extractMin(PriorityQueue *pq);
 Incident peekMin(PriorityQueue *pq);
