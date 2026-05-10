@@ -176,7 +176,7 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack, Grap
                 printf("\nOncelik: %d", inc->priority);
                 printf("\nTip  : %s", incidentTypeToString(inc->type));
                 printf("\nDurum: %s", incidentStatusToString(inc->status));
-                printf("\nBolge: %d", g->nodes[inc->regionId].region_name);
+                printf("\nBolge: %s", g->nodes[inc->regionId].region_name);
                 printf("\nAtanan ekip: %d", inc->assignedTeamId);
             }
             break;
