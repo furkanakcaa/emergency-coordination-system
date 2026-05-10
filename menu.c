@@ -30,7 +30,7 @@ void showMenu(Graph *g, PriorityQueue *pq, ResourceList *list, Stack *stack, Has
             incidentMenu(pq, ht, bst, stack, g);
             break;
         case 2:
-            resourceMenu(list);
+            resourceMenu(list, g);
             break;
         case 3:
             regionMenu(g, root);
@@ -134,6 +134,20 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack, Grap
                 printf("Kuyruk bos!\n");
                 break;
             }
+
+            Incident top = peekMin(pq);
+            printf("Kapatilacak olay:\n");
+            printf("ID      : %d\n", top.id);
+            printf("Oncelik : %d\n", top.priority);
+            printf("Tip     : %s\n", incidentTypeToString(top.type));
+            printf("Bolge   : %s\n", g->nodes[top.regionId].region_name);
+            printf("Onayliyor musunuz? (1:Evet 0:Hayir): ");
+
+            int onay;
+            scanf("%d", &onay);
+            if (onay != 1)
+                break;
+
             Incident closed = extractMin(pq);
             closed.status = RESOLVED;
 
@@ -174,7 +188,7 @@ void incidentMenu(PriorityQueue *pq, HashTable *ht, BST *bst, Stack *stack, Grap
     } while (secim != 0);
 }
 
-void resourceMenu(ResourceList *list)
+void resourceMenu(ResourceList *list, Graph *g)
 {
     int secim;
     do
@@ -202,10 +216,24 @@ void resourceMenu(ResourceList *list)
 
             printf("Ad: ");
             scanf("%s", r.name);
-            printf("Tip (0:ITFAIYE 1:AMBULANS 2:KURTARMA): ");
-            scanf("%d", (int *)&r.type);
-            printf("Bolge ID: ");
-            scanf("%d", &r.regionId);
+
+            do
+            {
+                printf("Tip (0:ITFAIYE 1:AMBULANS 2:KURTARMA): ");
+                scanf("%d", &r.type);
+                if (r.type < 0 || r.type > 2)
+                    printf("Gecersiz! 0-2 arasi girin.\n");
+
+            } while (r.type < 0 || r.type > 2);
+
+            do
+            {
+                printf("Bolge ID (0-%d): ", g->node_count - 1);
+                scanf("%d", &r.regionId);
+                if (r.regionId < 0 || r.regionId >= g->node_count)
+                    printf("Gecersiz! Boyle bir bolge yok.\n");
+            } while (r.regionId < 0 || r.regionId >= g->node_count);
+
             r.isBusy = 0;
             addResource(list, r);
             break;
